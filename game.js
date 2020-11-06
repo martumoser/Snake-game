@@ -19,6 +19,7 @@
     highscoresScene = null, 
     body = [],
     food = null,
+    extra = null,
     //var wall = [],
     highscores = [],
     posHighscore = 10,
@@ -26,6 +27,7 @@
     score = 0,
     iBody = new Image(),
     iFood = new Image(),
+    iExtra = new Image (),
     aEat = new Audio(),
     aDie = new Audio();
 
@@ -143,11 +145,13 @@
     // Load assets
     iBody.src = 'assets/body.png';
     iFood.src = 'assets/fruit.png';
+    iExtra.src = 'assets/apple.png';
     aEat.src = 'assets/chomp.oga';
     aDie.src = 'assets/dies.oga';
 
     // Create food
     food = new Rectangle(80, 80, 10, 10);
+    extra = new Rectangle (90,90,10,10);
     
     // Create walls
     /*wall.push(new Rectangle(100, 50, 10, 10));
@@ -200,6 +204,8 @@
     body.push(new Rectangle(0, 0, 10, 10));
     food.x = random(canvas.width / 10 - 1) * 10;
     food.y = random(canvas.height / 10 - 1) * 10;
+    extra.x = random(canvas.width / 20 - 1) * 10;
+    extra.y = random(canvas.height / 20 - 1) * 10;
     gameover = false;
  };
 
@@ -226,6 +232,7 @@
     // Draw food
     ctx.strokeStyle = '#f00';
     food.drawImage(ctx, iFood);
+    extra.drawImage(ctx, iExtra);
     
     // Draw score
     ctx.fillStyle = '#fff';
@@ -310,6 +317,13 @@
             score += 1;
             food.x = random(canvas.width / 10 - 1) * 10;
             food.y = random(canvas.height / 10 - 1) * 10;
+            aEat.play();
+        }
+
+        if (body[0].intersects(extra)) {
+            score += 10;
+            extra.x = random(canvas.width / 20 - 1) * 10;
+            extra.y = random(canvas.height / 20 - 1) * 10;
             aEat.play();
         }
 
