@@ -311,6 +311,18 @@
             body[0].y = canvas.height - body[0].height;
         }
 
+        function postScore (score){
+            fetch(`https://jsonplaceholder.typicode.com/users/1/posts?${score}`, {
+            method: "POST",
+            }) .then (function(response){
+                if (response.ok){
+                    console.log("Score sent successfully");
+                }
+            }) .catch (function(err){
+                console.log("Error trying to send the score");
+            });
+        }
+            
         // Food Intersects
         if (body[0].intersects(food)) {
             body.push(new Rectangle(0, 0, 10, 10));
@@ -318,6 +330,7 @@
             food.x = random(canvas.width / 10 - 1) * 10;
             food.y = random(canvas.height / 10 - 1) * 10;
             aEat.play();
+            postScore(score);
         }
 
         if (body[0].intersects(extra)) {
@@ -325,6 +338,7 @@
             extra.x = random(canvas.width / 20 - 1) * 10;
             extra.y = random(canvas.height / 20 - 1) * 10;
             aEat.play();
+            postScore(score);
         }
 
         // Wall Intersects
